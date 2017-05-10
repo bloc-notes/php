@@ -1,0 +1,275 @@
+<?php
+require_once "Librairie-G Doyon.php";
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Projet 1 par Philippe Doyon (Saisie des données)</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <link rel="stylesheet" type="text/css" href="index.css" />
+   <script type="text/javascript" src="index.js" /></script>
+
+   <script type="text/javascript">
+      /* Initialisation des noms de joueur */
+      var tListeJoueurs = Array();
+      tListeJoueurs[ 0] = '|*|';
+      tListeJoueurs[ 1] = 'Alexandre Patry|*|Alexandre Patry';
+      tListeJoueurs[ 2] = 'Benoît Alarie|*|Benoît Alarie';
+      tListeJoueurs[ 3] = 'Brigitte Chabot|*|Brigitte Chabot';
+      tListeJoueurs[ 4] = 'Charlène Boivert|*|Charlène Boivert';
+      tListeJoueurs[ 5] = 'Danielle Bessette|*|Danielle Bessette';
+      tListeJoueurs[ 6] = 'Dany Caron|*|Dany Caron';
+      tListeJoueurs[ 7] = 'Dominic Bouchard|*|Dominic Bouchard';
+      tListeJoueurs[ 8] = 'Dominique Boyce|*|Dominique Boyce';
+      tListeJoueurs[ 9] = 'Jean-François Maltais|*|Jean-François Maltais';
+      tListeJoueurs[10] = 'Jean-Michel Julien|*|Jean-Michel Julien';
+      tListeJoueurs[11] = 'Josée Dufresne|*|Josée Dufresne';
+      tListeJoueurs[12] = 'Katia Rousson|*|Katia Rousson';
+      tListeJoueurs[13] = 'Lise Dalemans|*|Lise Dalemans';
+      tListeJoueurs[14] = 'Mélanie Desrochers|*|Mélanie Desrochers';
+      tListeJoueurs[15] = 'Robert Rivard|*|Robert Rivard';
+      tListeJoueurs[16] = 'Simon Ouellette|*|Simon Ouellette';
+
+      /* Initialisation des numéros (1 à 49) */
+      var tListeNos = Array();
+      tListeNos[0] = '|*|';
+      for (var i=1; i<=49; i++) {
+         tListeNos[i] = ajouteZeros(i, 2) + '|*|' + ajouteZeros(i, 2);
+      }
+   </script>
+   
+   <script type="text/javascript">
+      function initialisationZones(binReinitialisation) {
+         function assigneNumeros(intNoJoueur, strNos, binReinitialisation) {
+            var tNos = strNos.split(';');
+            for (i=0; i<6; i++) {
+               b('ddlNo' + ajouteZeros(intNoJoueur, 2) + '-' + (i+1), binReinitialisation ? '' : ajouteZeros(tNos[i], 2));
+            }
+         }
+         binEfface = false;
+         /* Initialisation du nom de groupe */
+         b('tbNomGroupe', binEfface ? '' : 'Les futurs millionnaires de Saint-Geneviève');
+         /* Initialisation du nom du responsable */
+         b('ddlNomResponsable', binEfface ? '' : 'Dominic Bouchard');
+         /* Initialisation du téléphone */
+         b('tbNoTelephoneResponsable', binEfface ? '' : '(514) 123-4567');
+         /* Initialisation de la date du tirage */
+         b('tbDateTirage', binEfface ? '' : '18-02-2017');
+         /* Initialisation de la combinaison gagnante */
+         b('ddlNoGagnant1', binReinitialisation ? '' : ajouteZeros(1, 2));
+         b('ddlNoGagnant2', binReinitialisation ? '' : ajouteZeros(2, 2));
+         b('ddlNoGagnant3', binReinitialisation ? '' : ajouteZeros(3, 2));
+         b('ddlNoGagnant4', binReinitialisation ? '' : ajouteZeros(4, 2));
+         b('ddlNoGagnant5', binReinitialisation ? '' : ajouteZeros(5, 2));
+         b('ddlNoGagnant6', binReinitialisation ? '' : ajouteZeros(6, 2));
+         b('ddlNoGagnantC', binReinitialisation ? '' : ajouteZeros(7, 2));
+         /* Initialisation des lots */
+         b('tbLot6sur6', binEfface ?     '' : '15837954.90');
+         b('tbLot5sur6Plus', binEfface ? '' :    '67788.70');
+         b('tbLot5sur6', binEfface ?     '' :     '1686.30');
+         b('tbLot4sur6', binEfface ?     '' :       '59.90');
+         b('tbLot3sur6', binEfface ?     '' :       '10.00');
+         b('tbLot2sur6Plus', binEfface ? '' :        '5.00');
+         b('tbLot2sur6', binEfface ?     '' :        '0.00');
+         /* Initialisation des 22 combinaisons des joueurs */
+         b('ddlNom01', binReinitialisation ? '' : 'Alexandre Patry');
+         b('ddlNom02', binReinitialisation ? '' : 'Benoît Alarie');
+         b('ddlNom03', binReinitialisation ? '' : 'Brigitte Chabot');
+         b('ddlNom04', binReinitialisation ? '' : 'Charlène Boivert');
+         b('ddlNom05', binReinitialisation ? '' : 'Danielle Bessette');
+         b('ddlNom06', binReinitialisation ? '' : 'Dany Caron');
+         b('ddlNom07', binReinitialisation ? '' : 'Dominic Bouchard');
+         b('ddlNom08', binReinitialisation ? '' : 'Dominique Boyce');
+         b('ddlNom09', binReinitialisation ? '' : 'Dominique Boyce');
+         b('ddlNom10', binReinitialisation ? '' : 'Jean-François Maltais');
+         b('ddlNom11', binReinitialisation ? '' : 'Jean-Michel Julien');
+         b('ddlNom12', binReinitialisation ? '' : 'Josée Dufresne');
+         b('ddlNom13', binReinitialisation ? '' : 'Katia Rousson');
+         b('ddlNom14', binReinitialisation ? '' : 'Katia Rousson');
+         b('ddlNom15', binReinitialisation ? '' : 'Katia Rousson');
+         b('ddlNom16', binReinitialisation ? '' : 'Katia Rousson');
+         b('ddlNom17', binReinitialisation ? '' : 'Lise Dalemans');
+         b('ddlNom18', binReinitialisation ? '' : 'Mélanie Desrochers');
+         b('ddlNom19', binReinitialisation ? '' : 'Robert Rivard');
+         b('ddlNom20', binReinitialisation ? '' : 'Simon Ouellette');
+         b('ddlNom21', binReinitialisation ? '' : 'Simon Ouellette');
+         b('ddlNom22', binReinitialisation ? '' : 'Simon Ouellette');
+         /* Initialisation des 22 x 6 numéros "gagnants" */
+         var tNos = Array();
+         tNos[ 1] = '8;9;10;11;12;13'; assigneNumeros( 1,tNos[ 1], binReinitialisation);
+         tNos[ 2] = '2;9;10;11;12;13'; assigneNumeros( 2,tNos[ 2], binReinitialisation);
+         tNos[ 3] = '1;4;10;11;12;13'; assigneNumeros( 3,tNos[ 3], binReinitialisation);
+         tNos[ 4] = '3;5;7;11;12;13';  assigneNumeros( 4,tNos[ 4], binReinitialisation);
+         tNos[ 5] = '1;3;4;11;12;13';  assigneNumeros( 5,tNos[ 5], binReinitialisation);
+         tNos[ 6] = '2;4;5;7;12;13';   assigneNumeros( 6,tNos[ 6], binReinitialisation);
+         tNos[ 7] = '1;4;5;6;12;13';   assigneNumeros( 7,tNos[ 7], binReinitialisation);
+         tNos[ 8] = '1;2;4;5;7;13';    assigneNumeros( 8,tNos[ 8], binReinitialisation);
+         tNos[ 9] = '1;2;4;5;6;13';    assigneNumeros( 9,tNos[ 9], binReinitialisation);
+         tNos[10] = '2;3;4;5;6;7';     assigneNumeros(10,tNos[10], binReinitialisation);
+         tNos[11] = '1;2;3;4;5;6';     assigneNumeros(11,tNos[11], binReinitialisation);
+         tNos[12] = '13;12;11;10;9;8'; assigneNumeros(12,tNos[12], binReinitialisation);
+         tNos[13] = '13;12;11;10;9;2'; assigneNumeros(13,tNos[13], binReinitialisation);
+         tNos[14] = '13;12;11;10;4;1'; assigneNumeros(14,tNos[14], binReinitialisation);
+         tNos[15] = '13;12;11;7;5;3';  assigneNumeros(15,tNos[15], binReinitialisation);
+         tNos[16] = '13;12;11;4;3;1';  assigneNumeros(16,tNos[16], binReinitialisation);
+         tNos[17] = '13;12;7;5;4;2';   assigneNumeros(17,tNos[17], binReinitialisation);
+         tNos[18] = '13;12;6;5;4;1';   assigneNumeros(18,tNos[18], binReinitialisation);
+         tNos[19] = '13;7;5;4;2;1';    assigneNumeros(19,tNos[19], binReinitialisation);
+         tNos[20] = '13;6;5;4;2;1';    assigneNumeros(20,tNos[20], binReinitialisation);
+         tNos[21] = '7;6;5;4;3;2';     assigneNumeros(21,tNos[21], binReinitialisation);
+         tNos[22] = '6;5;4;3;2;1';     assigneNumeros(22,tNos[22], binReinitialisation);
+         tNos[23] = '';                assigneNumeros(23,tNos[23], binReinitialisation);
+         tNos[24] = '';                assigneNumeros(24,tNos[24], binReinitialisation);
+         tNos[25] = '';                assigneNumeros(25,tNos[25], binReinitialisation);
+         tNos[26] = '';                assigneNumeros(26,tNos[26], binReinitialisation);
+         tNos[27] = '';                assigneNumeros(27,tNos[27], binReinitialisation);
+         tNos[28] = '';                assigneNumeros(28,tNos[28], binReinitialisation);
+         tNos[29] = '';                assigneNumeros(29,tNos[29], binReinitialisation);
+         tNos[30] = '';                assigneNumeros(30,tNos[30], binReinitialisation);
+         tNos[31] = '';                assigneNumeros(31,tNos[31], binReinitialisation);
+         tNos[32] = '';                assigneNumeros(32,tNos[32], binReinitialisation);
+      }
+   </script>
+</head>
+<body onload="initialisationZones(false);">
+   
+   <form id="frmSaisie" method="post" action="projet01.php">
+      
+      <div id="divEntete" class="">
+         <p class="sTitreApplication">
+            Projet 1 (Saisie des données)
+            <span class="sTitreSection">
+               <br />par <span class="sRouge">Philippe Doyon</span>
+            </span>
+         </p>
+      </div>
+
+      <div id="divInfosGroupe" class="sDivInfos">
+         <p class="sTitreSection">
+            Informations sur le groupe
+         </p>
+         Nom du groupe<br />
+         <script type="text/javascript">
+            inputDYN('tbNomGroupe', 'divInfosGroupe', 'sNomGroupe', '', '50');
+            brDYN(2, 'divInfosGroupe');
+         </script>
+         Nom du responsable<br />
+         <script type="text/javascript">
+            selectDYN('ddlNomResponsable', 'divInfosGroupe', 'sNomJoueur', tListeJoueurs, '');
+            brDYN(2, 'divInfosGroupe');
+         </script>
+         No téléphone<br />
+         <script type="text/javascript">
+            inputDYN('tbNoTelephoneResponsable', 'divInfosGroupe', 'sNoTelephone', '', '14');
+         </script>
+         <img src="Logo649.png" class="sImage" />
+      </div>
+
+      <div id="divInfosTirage" class="sDivInfos">
+         <p class="sTitreSection">
+            Informations sur le tirage
+         </p>
+         Date du tirage<br />
+         <script type="text/javascript">
+            inputDYN('tbDateTirage', 'divInfosTirage', 'sDateTirage', '', '10');
+            brDYN(2, 'divInfosTirage');
+         </script>
+         Numéros gagnants<br />
+         <script type="text/javascript">
+            for (var intNo = 1; intNo <= 6; intNo++) {
+               selectDYN('ddlNoGagnant' + intNo, 'divInfosTirage', 'sNo sEcartHaut ' + (intNo==1 ? 'sAjustementMarge' : ''), tListeNos, '');
+            }
+            spanDYN('', 'divInfosTirage', '', true, 'C=');
+            selectDYN('ddlNoGagnantC', 'divInfosTirage', 'sNo', tListeNos, '');
+            brDYN(2, 'divInfosTirage');
+         </script>
+         Liste des lots :<br />
+         <script type="text/javascript">
+            var t, l, c;
+            t = tableDYN('', 'divInfosTirage', 'sEcartHaut');
+               l = trDYN('', t);
+                  c = tdDYN('', l);
+                     spanDYN('', c, '', true, '6/6 : ');
+                  c = tdDYN('', l);
+                     inputDYN('tbLot6sur6', c, 'sMontant sDroite', '', '11');
+                     spanDYN('', c, '', true, ' $');
+                  c = tdDYN('', l);
+                     spanDYN('', c, 'sEcartGauche', true, '3/6 : ');
+                  c = tdDYN('', l);
+                     inputDYN('tbLot3sur6', c, 'sMontant sDroite', '', '11');
+                     spanDYN('', c, '', true, ' $');
+               l = trDYN('', t);
+                  c = tdDYN('', l);
+                     spanDYN('', c, '', true, '5/6+ : ');
+                  c = tdDYN('', l);
+                     inputDYN('tbLot5sur6Plus', c, 'sMontant sDroite', '', '11');
+                     spanDYN('', c, '', true, ' $');
+                  c = tdDYN('', l);
+                     spanDYN('', c, 'sEcartGauche', true, '2/6+ : ');
+                  c = tdDYN('', l);
+                     inputDYN('tbLot2sur6Plus', c, 'sMontant sDroite', '', '11');
+                     spanDYN('', c, '', true, ' $');
+               l = trDYN('', t);
+                  c = tdDYN('', l);
+                     spanDYN('', c, '', true, '5/6 : ');
+                  c = tdDYN('', l);
+                     inputDYN('tbLot5sur6', c, 'sMontant sDroite', '', '11');
+                     spanDYN('', c, '', true, ' $');
+                  c = tdDYN('', l);
+                     spanDYN('', c, 'sEcartGauche', true, '2/6 : ');
+                  c = tdDYN('', l);
+                     inputDYN('tbLot2sur6', c, 'sMontant sDroite', '', '11');
+                     spanDYN('', c, '', true, ' $ (Gratuit)');
+               l = trDYN('', t);
+                  c = tdDYN('', l);
+                     spanDYN('', c, '', true, '4/6 : ');
+                  c = tdDYN('', l);
+                     inputDYN('tbLot4sur6', c, 'sMontant sDroite', '', '11');
+                     spanDYN('', c, '', true, ' $');
+                  c = tdDYN('', l);
+                  c = tdDYN('', l);
+         </script>
+      </div>
+      
+      <div id="divActions1" class="sDivActions">
+         <input id="btnVideFormulaire" name="btnVideFormulaire" type="button" 
+                value="Vider le contenu des zones contenant un numéro" class="" onclick="initialisationZones(true);" />
+         <input id="subCalculeGains" name="subCalculeGains" type="submit" 
+                value="Calculer les gains obtenus par le groupe" class="" />
+      </div>
+      
+      <div id="divListeCombinaisons" class="sDivCombinaisons">
+         <p class="sTitreSection">
+            Combinaisons des joueurs (ou mises)
+         </p>
+         <script type="text/javascript">
+            /* Génération du XHMTL */
+            for (var intNoCombinaison = 1; intNoCombinaison <= 32; intNoCombinaison++) {
+               spanDYN('', 'divListeCombinaisons', '', true, ajouteZeros(intNoCombinaison, 2) + '. ');
+               selectDYN('ddlNom' + ajouteZeros(intNoCombinaison, 2), 'divListeCombinaisons', 'sNomJoueur', tListeJoueurs, '');
+               for (var intNo = 1; intNo <= 6; intNo++) {
+                  selectDYN('ddlNo' + ajouteZeros(intNoCombinaison, 2) + '-' + intNo, 'divListeCombinaisons', 'sNo', tListeNos, '');
+               }
+               spanDYN('lblMessage' + ajouteZeros(intNoCombinaison, 2), 'divListeCombinaisons', 'sMessage', true, '');
+               brDYN(1, 'divListeCombinaisons');
+            }
+         </script>
+      </div>
+      
+      <div id="divActions2" class="sDivActions">
+         <input id="btnVideFormulaire" name="btnVideFormulaire" type="button" 
+                value="Vider le contenu des zones contenant un numéro" class="" onclick="initialisationZones(true);" />
+         <input id="subCalculeGains" name="subCalculeGains" type="submit" 
+                value="Calculer les gains obtenus par le groupe" class="" />
+      </div>
+      
+      <div id="divPiedPage" class="">
+         <p class="sDroits">
+            <br />
+            &copy; Département d'informatique G.-G.
+         </p>
+      </div>
+   </form>
+</body>
+</html>

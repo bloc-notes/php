@@ -1,0 +1,12 @@
+<?php
+//////////////////////////////////////////////////////////////////////////////////////////////////
+   $strNomHost = "localhost";
+ //  $strNomAdmin = "root";
+  // $strMotPasseAdmin = "";
+   $strNomAdmin = "qwerty";
+   $strMotPasseAdmin = "Secret21186";
+   $strNomBD = "annonces_qwerty";
+   $strTableAnnonces = "annonces";
+   $strTableUtilisateurs = "utilisateurs";
+//////////////////////////////////////////////////////////////////////////////////////////////////
+?>
