@@ -1,5 +1,0 @@
-1;Poste régulière;3.95;96
-2;Poste prioritaire;9.95;48
-3;Purolator;14.95;24
-4;UPS;17.95;18
-5;Dicom;24.95;12
