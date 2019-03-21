@@ -1,0 +1,36 @@
+Altine;Igor;(514) 834-3292;18-09-1983
+Archambault;Nicole;(514) 527-7207;28-09-1980
+Baril;Mathieu;(418) 666-9227;12-08-1981
+Bastien;Alexandra;(514) 727-8292;1984-06-27
+Boublenza;Simon;(819) 670-5217;06-06-1987
+Caron-Dubois;Maude;(418) 233-6741;25-09-1982
+Castonguay;Francois;(819) 859-4153;09-02-1988
+Chamberland;Jonathan;(450) 336-3449;20-07-1992
+Champagne;Cassandra;(418) 445-9227;1981-07-17
+Croteau;Jeff Evans;(514) 455-2352;07-08-1996
+Cyr;Fred Alec;(514) 646-3310;21-06-1986
+Dagenais;Remi David;(418) 324-7028;05-08-1994
+Dalpe;Isabelle;(819) 568-4865;1995-06-18
+Dame;Martine;(450) 505-7635;1992-02-09
+De Baene;Alexis;(418) 508-4707;1988-02-15
+Demers-Martel;Anny;(450) 494-8835;14-08-1992
+Desautels;David;(819) 409-6304;1987-05-19
+Dion;Guillaume;(450) 963-5665;09-10-1992
+Faber;Annie;(450) 669-5010;19-09-1982
+Gagne-Leduc;Carine;(418) 658-3279;27-03-1994
+Goulet;Luc;(418) 442-8321;1997-11-04
+Houle;David;(450) 949-9051;1998-06-17
+Jean;Sophie;(418) 519-7875;1988-01-12
+Laferte;William;(819) 231-7622;1998-05-07
+Lambert;Sylvie;(418) 894-3929;12-10-1998
+Laudansky;Pierre-Olivier;(450) 881-2956;1984-06-02
+Lebel;Dominic;(450) 458-3334;23-01-1983
+Leblanc;Eugénie;(819) 527-8721;1982-03-27
+Levac;Sorin;(450) 998-2692;16-10-1986
+Mantion;Eric;(418) 790-4737;20-07-1996
+Nguyen;Huu Phuoc;(819) 156-4576;02-12-1988
+Plante;Pierrick;(418) 387-9335;1985-09-09
+Poirier;Nicole;(418) 588-6226;09-02-1995
+Richer;Viviane;(819) 317-3964;17-06-1989
+Toma;Nathanael;(418) 532-6616;12-10-1988
+Toupin;Marianne;(514) 999-6477;1988-09-23

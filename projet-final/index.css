@@ -1,0 +1,417 @@
+BODY { font-family:arial;}
+TABLE { 
+    border-collapse: collapse;
+    display: inline-block;
+}
+TD { border:solid 1px black; padding:5px; }
+DIV, section {margin-top: 100px; margin-bottom: 150px;}
+
+.sTitreApplication { font-size:32px; line-height:26px; font-weight:bold; margin-top:0px; }
+.sTitreSection { font-size:24px; line-height:18px; font-weight:bold; }
+
+.sDroite { text-align:right; }
+.sDroits { font-size:12px; }
+
+.sFondBleu { background-color:blue; color:white; }
+.sFondVert { background-color:lightgreen; }
+.sGras { font-weight:bold; }
+.sNonSouligne { text-decoration:none; }
+.sPaiement { color:blue; width:80px; font-weight:bold; text-align:right; vertical-align:middle; height:15px; padding:1px; }
+.sRouge { color:red; }
+.sSansStyle { border:none; background-color:white; }
+
+.sMenu {
+    list-style-type: none;
+}
+.sOption1 {
+    display: inline;
+    padding: 2em;
+}
+
+.sOption {
+    padding: 2em;
+}
+
+.sAMenuGros {
+    /*background-color: #3591B8;*/
+    font-size: 22px;
+    border: 5px solid #1b2830;
+    display: block;
+    padding: 35px;
+    
+}
+
+.sComprimeMenuOption2 {
+        /* margin-top: 10%; */
+    margin-left: 35%;
+    margin-right: 35%;
+    border: 3px solid #1b2830;
+    border-radius: 7%;
+    padding: 10px;
+    /* -webkit-padding-start: 0px; */
+    background-color: #1b2830;
+}
+
+.sMenuGauche {
+    overflow: hidden;
+    position: fixed;
+    background: #212633;
+}
+
+.sCentre {
+    text-align: center;
+}
+
+.sEntete {
+    width: 100%;
+    position:fixed;
+    top:0;
+    left: 0;
+    font-weight: bold;
+    background-color: #3591B8;
+    border-top: 15px solid transparent;
+    border-left: 15px solid transparent;
+}
+
+.sCentre22 {
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 450px;
+}
+
+
+/* mouse over link */
+a:hover {
+    color: green;
+}
+
+/* ballise <a> sans lien*/
+a:not([href]) {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a:not([href]):hover {
+    color: green;
+}
+
+.sPiedPage {
+    width: 100%;
+    position:fixed;
+    bottom:0;
+    left: 0;
+    font-family: Larsseit, Arial, sans-serif;
+    font-weight: bold;
+    border-top: 5px solid #1b2830;
+}
+
+footer a:link {
+    color: #f1f1e7;
+}
+
+footer a:visited {
+    color: #f1f1e7;
+}
+
+footer a:hover {
+    color: #1b2830;
+}
+
+/* selected link */
+footer a:active {
+    color: purple;
+}
+
+.sContenuDroite {
+    position: fixed;
+    right: 2em;
+}
+
+.sEspaceLien {
+    display: inline;
+    padding-right: 2em;
+}
+
+.sGris {
+    background: #1b2830;
+}
+
+.sTurquoise {
+    /*background: #32a095;*/
+    background: #3591B8;
+}
+
+.sBeigeFont {
+    background: #f1f1e7;
+}
+
+.sBeigePolice {
+    color: #f1f1e7;
+}
+
+.sPolice12 {
+    font-size: 12px;
+}
+
+.sPolice15 {
+    font-size: 15px;
+}
+
+.sBordure8 {
+    border-left : 15px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-top: 1px solid transparent;
+}
+
+.sComprime12 {
+    margin-top: 5%;
+    margin-left: 12%;
+    margin-right: 12%;
+    border: 3px solid #1b2830;
+    border-radius: 25%;
+    padding: 1%;
+}
+
+.sComprime30 {
+    margin-top: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
+    border: 3px solid #1b2830;
+    border-radius: 25%;
+    padding: 1%;
+}
+
+.sComprime35 {
+    margin-top: 10%;
+    margin-left: 35%;
+    margin-right: 35%;
+    border: 3px solid #1b2830;
+    border-radius: 25%;
+    padding: 1%;
+}
+
+.sTextGauche {
+    text-align: left;
+}
+
+.sCompact {
+    display: inline-block;
+}
+
+::placeholder { 
+    opacity: 1; 
+}
+
+button {
+    background-color: #3591B8;
+    border: 3px solid #1b2830;
+    color: #f1f1e7;
+    font-weight: bold;
+    padding: 12px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 30%;
+}
+
+*:disabled, input:read-only {
+    background: #bfbfbf;
+}
+
+.sboutonAccordeon {
+    padding: 5px;
+    margin: 0px 0px;
+    font-size: 25px;
+}
+
+.sErreurTableau {
+    color: white;
+    background-color: red;
+}
+
+.sCacher {
+    display: none;
+}
+
+.sDeCacherTableau {
+    display: table-row;
+}
+
+/* https://css-tricks.com/css-content/*/
+[info-bulle].sErreurSignalement:hover:after{
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+[info-bulle]:after {
+    content: attr(info-bulle);
+    position: absolute;
+    top: -1.6em;
+    left: 100%;
+    padding: 4px 4px 4px 8px;
+    color: #ff0000;
+    white-space: nowrap; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px;  
+    border-radius: 5px;  
+    -moz-box-shadow: 0px 0px 4px #222;  
+    -webkit-box-shadow: 0px 0px 4px #222;  
+    box-shadow: 0px 0px 4px #222;  
+    background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);  
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #f8f8f8),color-stop(1, #cccccc));
+    background-image: -webkit-linear-gradient(top, #f8f8f8, #cccccc);  
+    background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);  
+    background-image: -ms-linear-gradient(top, #f8f8f8, #cccccc);  
+    background-image: -o-linear-gradient(top, #f8f8f8, #cccccc);
+    opacity: 0;
+    z-index: 99999;
+    visibility: hidden;
+}
+[info-bulle] {
+    position: relative;
+    /*display: inline-block;*/
+}
+
+.sErreurSignalement>* {
+    /*déclancheur pour voir les info-bulles*/
+    border-bottom: dotted red 2px;
+}
+
+
+/*Nouveau truc pour login par Mohamed H. Guelleh*/
+/*CSS Reset*/
+::placeholder { 
+    color: black;
+}
+button.btnConnexion,
+fieldset.fieldsetConnexion,
+input.inputConnexion,
+textarea.textareaConnexion {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    background: transparent;
+    vertical-align: baseline;
+    font-size: 100%;
+}
+:focus {
+    outline: 0;
+}
+h1.h1Connexion {
+    font-weight: normal;
+}
+html {
+    background-color: #3a3a3a;
+}
+body.bodyConnexion {
+    min-height: 100%;
+    height: 100%;
+    font-weight: lighter;
+    font-family: "HelveticaNeue-Light",
+        "Helvetica Neue Light",
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        "Lucida Grande",
+        sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+#warp {
+    position: relative;
+    margin: 50px auto 0;
+    width: 400px;
+    text-align: center;
+    color: white;
+}
+h1.h1Connexion {
+    color: #b6b6b6;
+    font-weight: bolder;
+    font-size: 60px;
+}
+.admin {
+    height: 285px;
+    float: left;
+    width: 193px;
+    border-right: 1px solid #333333;
+    text-align: left;
+    left: 0;
+    top: 0;
+    transition: all 200ms ease-in 100ms;
+}
+.cms {
+    height: 278px;
+    top: 70px;
+    left: -62px;
+    float: right;
+    width: 155px;
+    text-align: right;
+    transition: all 200ms ease-in 100ms;
+}
+.admin, .cms {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    transform: rotate(25deg);
+}
+.cms h1.h1Connexion {
+    margin-left: 0px;
+    color: #838385;
+}
+.rota h1.h1Connexion {margin-left: 20px;}
+.roti, .rota {
+    position: relative;
+    display: block;
+    transform: rotate(-25deg);
+}
+.admin:hover h1.h1Connexion, .cms:hover h1.h1Connexion {
+    color: #3591B8;
+}
+.rota {
+    margin-top: 80px;
+    margin-left: 35px;
+}
+.roti {
+    margin-top: 80px;
+    margin-right: 55px;
+}
+input.inputConnexion, button.btnConnexion {
+    margin: 4px;
+    padding: 8px 6px;
+    width: 350px;
+    background: white;
+    color: black;
+    font-size: 12px;
+    transition: all 1s ease-out;
+}
+button.btnConnexion {
+    margin-left: -230px;
+    background: #000;
+    color: white;
+    text-align: right;
+    cursor: pointer;
+    transition: all 1s ease-out;
+}
+button.btnConnexion:hover {
+    background: #3591B8;
+    transition: all 0.3s ease-in;
+}
+input.inputConnexion:hover {
+    box-shadow: inset 0 0 5px rgba(190, 29, 204, 0.6);
+}
+input.inputConnexion:focus {
+    background: gray;
+    color: white;
+}
+.up {
+    top: 100px;
+    left: -60px;
+}
+.down {
+    top: -100px;
+    left: 60px;
+}

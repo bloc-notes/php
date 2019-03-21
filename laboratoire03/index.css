@@ -1,0 +1,14 @@
+/* 
+    Created on : 2018-01-31, 19:12:32
+    Author     : Philippe Doyon
+*/
+BODY { font-family: arial; font-size: 16px; padding-left: 15px; padding-top: 15px;}
+TABLE { border-collapse: collapse;}
+TD { border: solid 1px black;}
+
+.sTitreApplication { font-size: 32px; line-height: 26px; font-weight: bold; margin-top: 0px;}
+.sTitreSection { font-size: 24px; line-height: 18px; font-weight: bold;}
+
+.sDroits {font-size: 12px;}
+.sGras {font-weight: bold;}
+.sRouge {color:red;}

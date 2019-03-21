@@ -1,0 +1,22 @@
+BODY { padding-left:15px; padding-top:15px; }
+BODY, INPUT, SELECT { font-family:arial; font-size:16px; }
+P { font-family:consolas; font-size:16px; }
+TABLE { border-collapse: collapse; }
+TD { border:solid 1px black; padding:5px; }
+
+.sTitreApplication, .sTitreSection, .sDroits { font-family:arial; }
+
+.sTitreApplication { font-size:32px; line-height:26px; font-weight:bold; margin-top:0px; }
+.sTitreSection { font-size:24px; line-height:20px; font-weight:bold; }
+
+.sBleu { color:blue; }
+.sCodePostal { width:70px; }
+.sDroite { text-align:right; }
+.sDroits { font-size:12px; }
+.sEntete { background-color:#cccccc; }
+.sGras { font-weight:bold; }
+.sProvince { width:25px; }
+.sRouge { color:red; }
+.sTableau { font-family:consolas; }
+.sTelephone { width:110px; }
+.sVille {width:120px; }

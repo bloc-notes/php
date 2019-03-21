@@ -1,0 +1,420 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+
+<head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>Gestion des prénoms</title>
+      <style type="text/css">
+            BODY,
+            INPUT,
+            SELECT {
+                  font-family: arial;
+                  font-size: 16px;
+            }
+
+            BODY {
+                  padding-left: 16px;
+                  padding-top: 16px;
+            }
+
+            .sBleu {
+                  color: blue;
+            }
+
+            .sDroits {
+                  font-size: 12px;
+            }
+
+            .sEntete {
+                  background-color: #cccccc;
+            }
+
+            .sFluxJSON {
+                  font-size: 14px;
+                  border: solid 1px black;
+                  padding: 5px;
+            }
+
+            .sGras {
+                  font-weight: bold;
+            }
+
+            .sHauteurInterligne {
+                  height: 10px;
+            }
+
+            .sInvisible {
+                  display: none;
+            }
+
+            .sLargeurTableau {
+                  width: 3000px;
+            }
+
+            .sPrenom {
+                  width: 190px;
+            }
+
+            .sRouge {
+                  color: red;
+            }
+
+            .sRubrique {
+                  width: 265px;
+            }
+
+            .sTitreApplication {
+                  font-size: 32px;
+                  line-height: 26px;
+                  font-weight: bold;
+                  margin-top: 0px;
+            }
+
+            .sTitreSection {
+                  font-size: 24px;
+                  line-height: 18px;
+            }
+
+            .sValeur {
+                  font-weight: bold;
+                  color: red;
+                  text-align: center;
+            }
+
+            .sVisible {
+                  display: inline;
+            }
+      </style>
+
+      <script type="text/javascript" src="javascript/librairie-ajax-post-ctext.js"></script>
+      <script type="text/javascript" src="javascript/librairie-generale.js"></script>
+
+      <script type="text/javascript">
+            /*
+            |----------------------------------------------------------------------------------|
+            | (GLOBAL; AJAX) Déclaration des variables de travail globales
+            |----------------------------------------------------------------------------------|
+            */
+            /* Identification du chemin où est entreposé l'application serveur */
+            var strDossierBase, strNomApplication;
+            strDossierBase = 'http://424w.cgodin.qc.ca/pdoyon/';
+            strNomApplication = strDossierBase + 'laboratoire07/php/gere-prenoms.php';
+      </script>
+
+      <script type="text/javascript">
+            /*
+            |----------------------------------------------------------------------------|
+            | ajax_gerePrenoms
+            |----------------------------------------------------------------------------|
+            */
+            function ajax_gerePrenoms() {
+                  /*
+                  |-------------------------------------------------------------------------------|
+                  | recupereReponseServeur
+                  |-------------------------------------------------------------------------------|
+                  */
+                  function recupereReponseServeur(ReponseSTRouXML) {
+                        /*
+                        |----------------------------------------------------------------------------|
+                        | Validation préliminaire (première partie)
+                        |----------------------------------------------------------------------------|
+                        */
+                        if (ReponseSTRouXML == null) {
+                              alert('La réponse du serveur n\'est pas de type STRING!');
+                              return;
+                        }
+                        /*
+                        |----------------------------------------------------------------------------|
+                        | Affichage de la réponse retournée par le serveur
+                        |----------------------------------------------------------------------------|
+                        */
+                        b('tdReponseRetournee', ReponseSTRouXML);
+                        /*
+                        |----------------------------------------------------------------------------|
+                        | Conversion du flux JSON en objet
+                        |----------------------------------------------------------------------------|
+                        */
+                        var objReponseAjax = JSON.parse(ReponseSTRouXML);
+                        /*
+                        |----------------------------------------------------------------------------|
+                        | Déclaration et initialisation du flux de données de sortie
+                        |----------------------------------------------------------------------------|
+                        */
+                        var objFlux = new Object();
+                        objFlux.initialise('');
+                        /*
+                        |----------------------------------------------------------------------------|
+                        | Validation préliminaire (deuxième partie)
+                        |----------------------------------------------------------------------------|
+                        */
+                        var OnContinue = true;
+
+                        if (objReponseAjax.binErreurFatale) {
+                              //Devrait jamais arrivée
+                              objFlux.ajoute('L\'opération n\'a pas pu être complétée !\n\nContactez le concepteur.');
+                              OnContinue = false;
+                        }
+                        else if (!objReponseAjax.binActionSaisie) {
+                              objFlux.ajoute('L\'action n\'a pas été saisie!');
+                              OnContinue = false;
+                        }
+                        else if (!objReponseAjax.binActionValide) {
+                              objFlux.ajoute('L\'action est invalide!');
+                              OnContinue = false;
+                        }
+                        else if (!objReponseAjax.binPrenomSaisi) {
+                              objFlux.ajoute('Le prénom n\'a pas été saisie!');
+                              OnContinue = false;
+                        }
+                        /*
+                        |----------------------------------------------------------------------------|
+                        | Traitement des données composant le flux JSON
+                        |----------------------------------------------------------------------------|
+                        */
+                        if (OnContinue) {
+                              with (objReponseAjax) {
+                                    switch (strAction) {
+                                          case 'ajouter':
+                                                //Ajout
+                                                if (binPrenomPresent)
+                                                      objFlux.ajoute('Le prénom "' + strPrenom + '" existe déjà!');
+                                                else
+                                                      objFlux.ajoute('Confirmation de l\'ajout du prénom "' + strPrenom + '".');
+                                                break;
+                                          case 'retirer':
+                                                //Retirer
+                                                if (!binPrenomPresent)
+                                                      objFlux.ajoute('Le prénom "' + strPrenom +
+                                                            '" n\'existe pas, donc ne peut pas être retiré!');
+                                                else
+                                                      objFlux.ajoute('Le prénom "' + strPrenom + '" a été retiré.');
+                                                break;
+                                          case 'renommer':
+                                                //Changement du prénom
+                                                if (!objReponseAjax.binNouveauPrenomSaisi)
+                                                      objFlux.ajoute('Le nouveau prénom n\'a pas été saisi!');
+                                                else if (objReponseAjax.strPrenom == objReponseAjax.strNouveauPrenom)
+                                                      objFlux.ajoute('Le prénom et le nouveau prénom doivent être différents!');
+                                                else if (!binPrenomPresent)
+                                                      objFlux.ajoute('Le prénom "' + strPrenom + '" n\'existe pas, donc ne peut pas être renommé!');
+                                                else if (binNouveauPrenomPresent)
+                                                      objFlux.ajoute('Le nouveau prénom "' + strNouveauPrenom + '" existe déjà, donc le prénom "' +
+                                                            strPrenom + '" ne peut pas être renommé!');
+                                                else if (binPrenomPresent)
+                                                      objFlux.ajoute('Le prénom "' + strPrenom + '" a été remplacé par "' + strNouveauPrenom + '".');
+
+                                                break;
+                                          case 'afficher':
+                                                //Affichage de tous les prénoms
+                                                var intNbPrenoms = tListePrenoms.length;
+                                                if (intNbPrenoms == 0) {
+                                                      objFlux.ajoute('Aucun nom n\'est enregistré!');
+                                                }
+                                                else {
+                                                      objFlux.ajoute('Le' + spluriel(intNbPrenoms) + ' prénom' + spluriel(intNbPrenoms) +
+                                                            ' enregistré' + spluriel(intNbPrenoms) + (intNbPrenoms > 1 ? ' sont ' : ' est '));
+                                                      var i;
+                                                      var intDimension = tListePrenoms.length;
+                                                      for (i = 0; i < intDimension; i++) {
+                                                            objFlux.ajoute('"' + tListePrenoms[i] + '"' +
+                                                                  (i < intDimension - 2 ? ', ' : (i < intDimension - 1 ? ' et ' : '')));
+                                                      }
+                                                      objFlux.ajoute('.');
+                                                }
+                                                break;
+                                          case 'valider':
+                                                objFlux.ajoute('Le prénom "' + strPrenom + '" est ' + (binPrenomPresent ? 'présent dans ' : 'absent de ') + 'la liste des prénoms.');
+                                                break;
+                                          case 'vider':
+                                                if (intNbPrenoms == 0) {
+                                                      objFlux.ajoute('La table labo07_prenoms ne contient aucun prénom!');
+                                                }
+                                                else {
+                                                      objFlux.ajoute('Tous les prénoms de la table labo07_prenoms ont été retirés (' + intNbPrenoms + ' au total).');
+                                                }
+                                                break;
+                                    }
+                              }
+                        }
+                        /*
+                        |----------------------------------------------------------------------------|
+                        | Affichage du premier flux de données de sortie 
+                        |----------------------------------------------------------------------------|
+                        */
+                        objFlux.attache('tdMessageUtilisateur');
+                        /*
+                        |----------------------------------------------------------------------------|
+                        | Initialisation du deuxième flux de données de sortie
+                        |----------------------------------------------------------------------------|
+                        */
+                        objFlux.initialise('<table>');
+                        objFlux.ajoute('<tr>');
+                        objFlux.ajoute('<td class="sEntete sFluxJSON">Attribut : </td>');
+                        objFlux.ajoute('<td class="sFluxJSON">binErreurFatale</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">strAction</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">binActionSaisie</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">binActionValide</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">strPrenom</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">binPrenomSaisi</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">binPrenomPresent</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">strNouveauPrenom</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">binNouveauPrenomSaisi</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">binNouveauPrenomPresent</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">tListePrenoms</td>');
+                        objFlux.ajoute('<td class="sFluxJSON">intNbPrenoms</td>');
+                        objFlux.ajoute('</tr>');
+                        with (objReponseAjax) {
+                              objFlux.ajoute('<tr>');
+                              objFlux.ajoute('<td class="sEntete sFluxJSON">Valeur</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + binErreurFatale + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + strAction + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + binActionSaisie + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + binActionValide + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + strPrenom + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + binPrenomSaisi + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + (binPrenomPresent ? true : false) + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + strNouveauPrenom + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + binNouveauPrenomSaisi + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + (binNouveauPrenomPresent ? true : false) + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + tListePrenoms + '</td>');
+                              objFlux.ajoute('<td class="sFluxJSON sValeur">' + intNbPrenoms + '</td>');
+                              objFlux.ajoute('</tr>');
+                        }
+                        objFlux.ajoute('</table>');
+                        objFlux.attache('tdFluxJSON');
+                  }
+                  /*
+                  |-------------------------------------------------------------------------------|
+                  | Module directeur (ajax_gerePrenoms)
+                  |-------------------------------------------------------------------------------|
+                  */
+                  function moduleDirecteur() {
+                        //Construction de la ligne de paramètre à transmettre
+                        var strLigneParametre = 'Action=' + b('ddlAction') +
+                              '&Prenom=' + b('tbPrenom') +
+                              '&NouveauPrenom=' + b('tbNouveauPrenom');
+
+                        //Affichage de la requête au serveur
+                        b('tdRequeteExecutee', strNomApplication + '?' + strLigneParametre);
+
+                        //Exécution de la requête au serveur
+                        requeteServeur(strNomApplication, strLigneParametre, recupereReponseServeur, true,
+                              cTEXT);
+                        //Fin de la fonction
+                  }
+                  if (b('ddlAction') == 'vider') {
+                        if (confirm('Désirez-vous vraiment retirer tous les prénoms de la table "labo01_prenoms"?\n\nOk = Oui\nou\nAnnuler = non')) {
+                              moduleDirecteur();
+                        }
+                  }
+                  else {
+                        moduleDirecteur();
+                  }
+
+            }
+      </script>
+</head>
+
+<body>
+      <form id="frmSaisie">
+            <div id="divEntete">
+                  <p class="sTitreApplication">
+                        Gestion des prénoms
+                        <br />
+                        <span class="sTitreSection">
+                              <span class="sNonGras">par </span>
+                              <span class="sRouge">Philippe Doyon</span>
+                        </span>
+                        <input id="btnActualiser" name="btnActualiser" type="button" value="Actualiser" style="font-size:12px;vertical-align:3px; color:black; "
+                              onclick="window.location = document.location.href;" />
+                  </p>
+            </div>
+
+            <div id="divAction">
+                  <p class="sTitreSection">
+                        Action à effectuer
+                  </p>
+                  <p>
+                        Que désirez-vous faire ?
+                        <br />
+                        <br /> Je veux
+                        <select id="ddlAction" name="ddlAction" onchange="s('lblNouveauPrenom', this.value == 'renommer' ? 'sVisible' : 'sInvisible');
+                                                              s('lblUnPrenom', this.value != 'afficher' && this.value != 'vider' ? 'sVisible' : 'sInvisible');
+                                                              s('lblTousLesPrenoms', this.value == 'afficher' ? 'sVisible' : 'sInvisible');
+                                                              s('lblContenuTablePrenom', this.value == 'vider' ? 'sVisible' : 'sInvisible');">
+                              <option value=""></option>
+                              <option value="ajouter">ajouter</option>
+                              <option value="renommer">renommer</option>
+                              <option value="retirer">retirer</option>
+                              <option value="afficher">afficher</option>
+                              <option value="valider">valider</option>
+                              <option value="vider">vider</option>
+                        </select>
+                        <span id="lblUnPrenom" class="sVisible">
+                              le prénom
+                              <input id="tbPrenom" name="tbPrenom" type="text" class="sPrenom" maxlength="20" value="" />
+                              <span id="lblNouveauPrenom" class="sInvisible">
+                                    pour
+                                    <input id="tbNouveauPrenom" name="tbNouveauPrenom" type="text" class="sPrenom" maxlength="20" value="" />
+                              </span>
+                        </span>
+                        <span id="lblTousLesPrenoms" class="sInvisible">
+                              tous les prénoms enregistrés
+                        </span>
+                        <span id="lblContenuTablePrenom" class="sInvisible">
+                              le contenu de la table 'labo07_prenoms'
+                        </span>
+                        <span id="lblOK" class="">
+                              <input id="btnOK" name="btnOK" type="button" class="" value="OK" onclick="ajax_gerePrenoms();" />
+                        </span>
+                  </p>
+            </div>
+
+            <div id="divReponse" class="">
+                  <span class="sTitreSection">
+                        <br /> Déroulement de l'échange entre le client et le serveur
+                        <br />
+                        <br />
+                  </span>
+                  <table class="sLargeurTableau">
+                        <tr>
+                              <td>Requête exécutée (POST) : </td>
+                              <td id="tdRequeteExecutee" class="sGras sBleu"></td>
+                        </tr>
+                        <tr class="sHauteurInterligne">
+                              <td></td>
+                        </tr>
+                        <tr>
+                              <td class="sRubrique">Réponse retournée par le serveur : </td>
+                              <td id="tdReponseRetournee" class="sSansBordure sGras sRouge"></td>
+                        </tr>
+                        <tr class="sHauteurInterligne">
+                              <td></td>
+                        </tr>
+                        <tr>
+                              <td>Flux JSON : </t</td>
+                                    <td id="tdFluxJSON"></td>
+                        </tr>
+                        <tr class="sHauteurInterligne">
+                              <td></td>
+                        </tr>
+                        <tr>
+                              <td>Message à l'utilisateur :
+                                    <br>
+                              </td>
+                              <td id="tdMessageUtilisateur" class="sSansBordure sGras"></td>
+                        </tr>
+                  </table>
+            </div>
+
+            <div id="divPiedPage">
+                  <p class="sDroits">
+                        <br /> &copy; Département d'informatique G.-G.
+                  </p>
+            </div>
+      </form>
+</body>
+
+</html>

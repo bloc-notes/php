@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Exercice 5</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="reset.css" />
+    <style type="text/css">
+        BODY,
+        INPUT,
+        SELECT {
+            font-family: Verdana;
+            font-size: 16px;
+        }
+
+        BODY {
+            margin: 16px;
+        }
+
+        A {
+            color: blue;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        P {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        SPAN {
+            line-height: 20px;
+        }
+
+        TABLE {
+            border-collapse: collapse;
+        }
+
+        TD {
+            border: solid 1px black;
+            padding: 5px;
+        }
+
+        .sDroits {
+            font-size: 12px;
+        }
+
+        .sEntete {
+            background-color: #CCCCCC;
+        }
+
+        .sInvisible {
+            display: none;
+        }
+
+        .sRouge {
+            color: red;
+        }
+
+        .sTitreApplication {
+            font-size: 32px;
+            line-height: 26px;
+            font-weight: bold;
+            margin-top: 0px;
+        }
+
+        .sTitreSection {
+            font-size: 24px;
+            line-height: 18px;
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .sVisible {
+            display: inline;
+        }
+    </style>
+
+    <script type="text/javascript" src="librairie-generale.js"></script>
+
+    <script type="text/javascript">
+        /*
+        |----------------------------------------------------------------------------------|
+        | Objet JSON
+        |----------------------------------------------------------------------------------|
+        */
+        var JSONMenuPrincipal =
+            [
+                {
+                    "No": 1,
+                    "Description": "Première application",
+                    "URL": "applications/application1.htm",
+                    "PrivilegeAccordeA": [
+                        { "Identifiant": "lounis" },
+                        { "Identifiant": "christian" },
+                        { "Identifiant": "lucille" },
+                        { "Identifiant": "helene" },
+                        { "Identifiant": "anh" },
+                        { "Identifiant": "nicole" }
+                    ]
+                },
+                {
+                    "No": 2,
+                    "Description": "Deuxième application",
+                    "URL": "applications/application2.htm",
+                    "PrivilegeAccordeA": [
+                        { "Identifiant": "rejean" },
+                        { "Identifiant": "anh" },
+                        { "Identifiant": "lounis" }
+                    ]
+                },
+                {
+                    "No": 3,
+                    "Description": "Troisième application",
+                    "URL": "applications/application3.htm",
+                    "PrivilegeAccordeA": [
+                        { "Identifiant": "lounis" },
+                        { "Identifiant": "anh" },
+                        { "Identifiant": "lucille" },
+                        { "Identifiant": "christian" }
+                    ]
+                },
+                {
+                    "No": 4,
+                    "Description": "Quatrième application",
+                    "URL": "applications/application4.htm",
+                    "PrivilegeAccordeA": [
+                        { "Identifiant": "anh" }
+                    ]
+                },
+                {
+                    "No": 5,
+                    "Description": "Cinquième application",
+                    "URL": "applications/application5.htm",
+                    "PrivilegeAccordeA": [
+                        { "Identifiant": "helene" },
+                        { "Identifiant": "anh" },
+                        { "Identifiant": "rejean" },
+                        { "Identifiant": "christian" }
+                    ]
+                }
+            ];
+        /*
+        |----------------------------------------------------------------------------------|
+        | afficheContenuObjetJSON
+        |----------------------------------------------------------------------------------|
+        */
+        function afficheContenuObjetJSON() {
+            /* Instanciation et initialisation d'un flux de données */
+            var objFlux = new Object();
+            objFlux.initialise();
+
+            /* Affichage de l'en-tête du tableau HTML */
+            objFlux.ajoute('<table>');
+            objFlux.ajoute('   <tr>');
+            objFlux.ajoute('      <td class="sEntete">No</td>');
+            objFlux.ajoute('      <td class="sEntete">Description</td>');
+            objFlux.ajoute('      <td class="sEntete">URL</td>');
+            objFlux.ajoute('      <td class="sEntete">Privilège accordé à</td>');
+            objFlux.ajoute('  </tr>');
+
+            /* Parcours de l'objet JSON pour récupérer les données le constituant, puis
+             * entreposage dans le tableau HTML */
+            var i;
+            var intDimensionTableau = JSONMenuPrincipal.length;
+            for (i = 0; i < intDimensionTableau; i++) {
+                objFlux.ajoute('   <tr>');
+                with (JSONMenuPrincipal[i]) {
+                    objFlux.ajoute('        <td>' + No + '</td>');
+                    objFlux.ajoute('        <td>' + Description + '</td>');
+                    objFlux.ajoute('        <td>' + URL + '</td>');
+
+                    objFlux.ajoute('        <td>');
+                    var j;
+                    var intDimensionTabPrivilege = PrivilegeAccordeA.length;
+                    for (j = 0; j < intDimensionTabPrivilege; j++) {
+                        objFlux.ajoute(PrivilegeAccordeA[j].Identifiant);
+
+                        if ((j + 1) != intDimensionTabPrivilege) {
+                            objFlux.ajoute(', ');
+                        }
+                    }
+                    objFlux.ajoute('</td>');
+                }
+            }
+
+            objFlux.ajoute('</table>');
+
+            /* Affichage du flux de données dans la page Web */
+            objFlux.attache('lblFlux');
+        }
+        /*
+        |----------------------------------------------------------------------------------|
+        | afficheMenuSelonPrivilege
+        |----------------------------------------------------------------------------------|
+        */
+        function afficheMenuSelonPrivilege(strIdentifiant) {
+            /* Instanciation et initialisation d'un flux de données */
+            var objFlux = new Object();
+            objFlux.initialise();
+
+            /* Affichage du menu seulement si sélection d'un identifiant dans la liste */
+            s('divMenu', strIdentifiant == "" ? 'sInvisible' : 'sVisible');
+
+            var tabMenuDisponible = new Array();
+            var i;
+            var intDimensionTabJson = JSONMenuPrincipal.length;
+
+            for (i = 0; i < intDimensionTabJson; i++) {
+                with (JSONMenuPrincipal[i]) {
+                    if (PrivilegeAccordeA.find(item => item.Identifiant == strIdentifiant)) {
+                        tabMenuDisponible.push(i + 1);
+                    }
+                }
+            }
+
+            var intDimensionTabOptionDispo = tabMenuDisponible.length;
+            for (i = 1; i <= intDimensionTabOptionDispo; i++) {
+                switch (tabMenuDisponible[i - 1]) {
+                    case 1:
+                        objFlux.ajoute(i + '. <a href="applications/application' + tabMenuDisponible[i - 1] + '.htm">Première application</a> (option no 1)');
+                        break;
+                    case 2:
+                        objFlux.ajoute(i + '. <a href="applications/application' + tabMenuDisponible[i - 1] + '.htm">Deuxième application</a> (option no 2)');
+                        break;
+                    case 3:
+                        objFlux.ajoute(i + '. <a href="applications/application' + tabMenuDisponible[i - 1] + '.htm">Troisième application</a> (option no 3)');
+                        break;
+                    case 4:
+                        objFlux.ajoute(i + '. <a href="applications/application' + tabMenuDisponible[i - 1] + '.htm">Quatrième application</a> (option no 4)');
+                        break;
+                    case 5:
+                        objFlux.ajoute(i + '. <a href="applications/application' + tabMenuDisponible[i - 1] + '.htm">Cinquième application</a> (option no 5)');
+                        break;
+                }
+                objFlux.ajoute('    <br /><br />');
+            }
+
+            if (intDimensionTabOptionDispo == 0) {
+                objFlux.ajoute('Aucune option disponible pour \'' + strIdentifiant + '\' !');
+            }
+
+            objFlux.attache('lblMenu');
+        }
+        /*
+        |----------------------------------------------------------------------------------|
+        | creeListeDeroulanteIdentifiants
+        |----------------------------------------------------------------------------------|
+        */
+        function creeListeDeroulanteIdentifiants() {
+            /* Réf.: http://stackoverflow.com/questions/1960473/unique-values-in-an-array */
+            Array.prototype.sortUnique = function () {
+                this.sort();
+                var last_i;
+                for (var i = 0; i < this.length; i++)
+                    if ((last_i = this.lastIndexOf(this[i])) !== i)
+                        this.splice(i + 1, last_i - i);
+                return this;
+            }
+
+            /* Instanciation et initialisation d'un flux de données */
+            var objFlux = new Object();
+            objFlux.initialise();
+
+            /* Entreposage de tous les identifiants dans un tableau */
+            var tIdentifiants = new Array();
+            for (var i = 0; i < JSONMenuPrincipal.length; i++) {
+                with (JSONMenuPrincipal[i]) {
+                    for (var j = 0; j < PrivilegeAccordeA.length; j++) {
+                        tIdentifiants.push(PrivilegeAccordeA[j].Identifiant);
+                    }
+                }
+            }
+            /* Retrait de tous les doublons et du même coup un tri est effectué */
+            tIdentifiants.sortUnique();
+
+            /* Création d'une balise <select> contenant la liste des identifiants */
+            objFlux.ajoute('<select id="ddlIdentifiants" name="ddlIdentifiants" onchange="afficheMenuSelonPrivilege(this.value)">');
+            objFlux.ajoute('<option></option>');
+            for (var i = 0; i < tIdentifiants.length; i++) {
+                objFlux.ajoute('<option>' + tIdentifiants[i] + '</option>');
+            }
+            /* Aux fins de la démonstration, ajout d'un identifiant n'ayant aucun privilège */
+            objFlux.ajoute('<option>pierre</option>');
+            objFlux.ajoute('</select>');
+
+            /* Affichage du flux de données dans la page Web */
+            objFlux.attache('lblListeIdentifiantsJSON');
+        }
+    </script>
+</head>
+
+<body onload="afficheContenuObjetJSON();creeListeDeroulanteIdentifiants();">
+    <form id="frmSaisie" method="get" action="">
+        <div id="divEntete" class="">
+            <p class="sTitreApplication">
+                Exercice 5 : Création d'un menu à partir d'un flux JSON
+                <span class="sTitreSection">
+                    <br />par
+                    <span class="sRouge">Philippe Doyon</span>
+                    <input id="btnActualiser" name="btnActualiser" type="button" value="Actualiser" style="font-size:12px;vertical-align:3px; color:black; "
+                        onclick="window.location = document.location.href;" />
+                </span>
+            </p>
+        </div>
+
+        <div id="divObjetJSON">
+            <p class="sTitreSection">
+                Contenu de l'objet JSON (Référence)
+            </p>
+            <p id="lblFlux"></p>
+        </div>
+
+        <div id="divConnexion">
+            <p class="sTitreSection">
+                Connexion (prototype)
+            </p>
+            <p>
+                Sélectionnez l'utilisateur :
+                <span id="lblListeIdentifiantsJSON"></span>
+            </p>
+        </div>
+
+        <div id="divMenu" class="sInvisible">
+            <p class="sTitreSection">
+                Menu
+            </p>
+            <p id="lblMenu"></p>
+        </div>
+
+        <div id="divPiedPage">
+            <br />
+            <p class="sDroits">
+                &copy; Département d'informatique G.-G.
+            </p>
+        </div>
+    </form>
+</body>
+
+</html>
